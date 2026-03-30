@@ -44,7 +44,7 @@ export async function summarizeFeedback(
     .join('\n\n');
 
   const response = await anthropic.messages.create({
-    model: 'claude-sonnet-4-6-20250514',
+    model: 'claude-haiku-4-5-20251001',
     max_tokens: 1024,
     system: `Você é um assistente especializado em design e marketing. Analise as anotações de feedback de um cliente sobre um material de marketing e gere um resumo acionável para o designer. Responda SEMPRE em português brasileiro. Retorne APENAS um JSON válido sem markdown.`,
     messages: [
@@ -78,7 +78,18 @@ Gere um JSON com esta estrutura exata:
   const text = response.content[0].type === 'text' ? response.content[0].text : '';
 
   try {
-    const parsed = JSON.parse(text);
+
+    let parsed = null;
+
+    if (text) {
+      try {
+        // Regex removes the Markdown markers (```json and ```)
+        const cleanJson = text.replace(/```json\n?|```/g, '').trim();
+        parsed = JSON.parse(cleanJson);
+      } catch (e) {
+        console.error("String was not valid JSON", e);
+      }
+    }
 
     const actionItems: ActionItem[] = (parsed.actionItems || []).map(
       (item: { description: string; priority: string; category: string; relatedPinNumbers?: number[] }) => ({
@@ -105,7 +116,8 @@ Gere um JSON com esta estrutura exata:
     };
 
     return summary;
-  } catch {
+  } catch(e) {
+    console.error(e)
     return null;
   }
 }

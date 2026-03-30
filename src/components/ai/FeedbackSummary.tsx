@@ -92,7 +92,7 @@ export function FeedbackSummaryPanel({ summary }: FeedbackSummaryProps) {
               )}
 
               <p className="text-[10px] text-text-tertiary">
-                Gerado por IA a partir de {summary.rawAnnotationCount} anotações • Claude Sonnet
+                Gerado por IA a partir de {summary.rawAnnotationCount} anotações
               </p>
             </div>
           </motion.div>

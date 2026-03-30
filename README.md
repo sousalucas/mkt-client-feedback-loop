@@ -65,7 +65,7 @@ Isso permite explorar todas as funcionalidades imediatamente apos iniciar o serv
 | **Tailwind CSS v4** | Estilizacao utilitaria com tema customizado |
 | **motion** (Framer Motion) | Animacoes fluidas (transicoes de pagina, pins, confetti) |
 | **lucide-react** | Iconografia consistente e leve |
-| **@anthropic-ai/sdk** | Integracao com Claude para resumo inteligente de feedback |
+| **@anthropic-ai/sdk** | Integracao com IA para resumo inteligente de feedback |
 
 ### Armazenamento
 Este e um **MVP** — todos os dados ficam **em memoria** no servidor Node.js. Isso significa:
@@ -182,7 +182,7 @@ Todas as rotas estao em `/api/projects/`:
 
 ### Resumo com IA
 - Coleta todas as anotacoes da versao atual
-- Envia para Claude Sonnet com prompt estruturado em portugues
+- Envia para IA com prompt estruturado em portugues
 - Retorna resumo narrativo + itens de acao + sentimento
 - Categorias: tipografia, cores, layout, conteudo, imagem
 - Prioridades: alta, media, baixa
