@@ -39,8 +39,8 @@ export function FeedbackSummaryPanel({ summary }: FeedbackSummaryProps) {
         <div className="flex items-center gap-2">
           <Sparkles className="h-4 w-4 text-accent" />
           <span className="text-sm font-semibold">Resumo Inteligente</span>
-          <span className={`text-xs px-2 py-0.5 rounded-full border ${sentiment.bg}`}>
-            <span className={sentiment.color}>{sentiment.label}</span>
+          <span className={`text-xs px-2 py-0.5 rounded-full border ${sentiment?.bg}`}>
+            <span className={sentiment?.color}>{sentiment?.label}</span>
           </span>
         </div>
         {isExpanded ? <ChevronUp className="h-4 w-4 text-text-tertiary" /> : <ChevronDown className="h-4 w-4 text-text-tertiary" />}
@@ -73,13 +73,13 @@ export function FeedbackSummaryPanel({ summary }: FeedbackSummaryProps) {
                           key={item.id}
                           className="flex items-start gap-3 p-3 rounded-xl bg-bg-secondary/50 border border-border-subtle"
                         >
-                          <div className={`p-1 rounded-md ${priority.bg}`}>
-                            <PriorityIcon className={`h-3 w-3 ${priority.color}`} />
+                          <div className={`p-1 rounded-md ${priority?.bg}`}>
+                            <PriorityIcon className={`h-3 w-3 ${priority?.color}`} />
                           </div>
                           <div className="flex-1">
                             <p className="text-sm text-text-primary">{item.description}</p>
                             <div className="flex items-center gap-2 mt-1">
-                              <span className={`text-xs ${priority.color}`}>{priority.label}</span>
+                              <span className={`text-xs ${priority?.color}`}>{priority?.label}</span>
                               <span className="text-xs text-text-tertiary">•</span>
                               <span className="text-xs text-text-tertiary capitalize">{item.category}</span>
                             </div>
