@@ -1,26 +1,164 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-tertiary: var(--bg-tertiary);
+  --color-bg-hover: var(--bg-hover);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-approved: #34d399;
+  --color-changes: #fbbf24;
+  --color-pending: var(--accent);
+  --color-review: #38bdf8;
+  --color-pin: #f87171;
+  --color-pin-resolved: #34d399;
+
+  --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
+
+  --color-glass: var(--glass);
+  --color-glass-border: var(--glass-border);
+  --color-glass-hover: var(--glass-hover);
+
+  --font-display: var(--font-sora);
+  --font-body: var(--font-outfit);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── Dark theme (default) ─────────────────────────────────── */
+:root {
+  --bg-primary: #070b12;
+  --bg-secondary: #0d1320;
+  --bg-tertiary: #151d2e;
+  --bg-hover: #1c2840;
+
+  --text-primary: #e4e8ef;
+  --text-secondary: #7a8da3;
+  --text-tertiary: #4a5c72;
+
+  --accent: #5b8def;
+  --accent-hover: #7ba4f7;
+
+  --border: #1c2840;
+  --border-subtle: #111a2b;
+
+  --glass: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-hover: rgba(255, 255, 255, 0.06);
+  --glass-card-hover-border: rgba(255, 255, 255, 0.1);
+
+  --body-gradient: rgba(91, 141, 239, 0.08);
+  --scrollbar-thumb: #151d2e;
+  --scrollbar-thumb-hover: #1c2840;
+}
+
+/* ─── Light theme ───────────────────────────────────────────── */
+.light {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-tertiary: #e2e8f0;
+  --bg-hover: #cbd5e1;
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-tertiary: #94a3b8;
+
+  --accent: #4f7de8;
+  --accent-hover: #3b6be0;
+
+  --border: #e2e8f0;
+  --border-subtle: #f1f5f9;
+
+  --glass: rgba(0, 0, 0, 0.02);
+  --glass-border: rgba(0, 0, 0, 0.07);
+  --glass-hover: rgba(0, 0, 0, 0.04);
+  --glass-card-hover-border: rgba(0, 0, 0, 0.12);
+
+  --body-gradient: rgba(79, 125, 232, 0.05);
+  --scrollbar-thumb: #e2e8f0;
+  --scrollbar-thumb-hover: #cbd5e1;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-primary);
+  background-image: radial-gradient(ellipse 80% 50% at 50% -20%, var(--body-gradient), transparent);
+  color: var(--text-primary);
+  font-family: var(--font-body), system-ui, sans-serif;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.glass-card {
+  background: var(--glass);
+  border-color: var(--glass-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.glass-card:hover {
+  background: var(--glass-hover);
+  border-color: var(--glass-card-hover-border);
+}
+
+h1, h2, h3, h4, h5, h6, button, nav, .font-display {
+  font-family: var(--font-display), system-ui, sans-serif;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* Confetti animation for approval */
+@keyframes confetti-fall {
+  0% { transform: translateY(-100%) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+@keyframes scale-check {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.confetti-piece {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  top: -10px;
+  animation: confetti-fall 2s ease-in forwards;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.scale-check {
+  animation: scale-check 0.5s ease-out forwards;
+}
+
+/* Pin pulse animation */
+@keyframes pin-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+}
+
+.pin-pulse {
+  animation: pin-pulse 2s infinite;
 }
